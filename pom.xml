@@ -6,7 +6,7 @@
     <groupId>com.graphhopper</groupId>
     <artifactId>graphhopper-parent</artifactId>
     <name>GraphHopper Parent Project</name>
-    <version>0.12-SNAPSHOT</version>
+    <version>0.12.caocao-SNAPSHOT</version>
     <packaging>pom</packaging>
     <url>https://www.graphhopper.com</url>
     <inceptionYear>2012</inceptionYear>
@@ -215,9 +215,17 @@
     </build>
 
     <distributionManagement>
+        <!--<snapshotRepository>-->
+            <!--<id>ossrh</id>-->
+            <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+        <!--</snapshotRepository>-->
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://nexus.51caocao.cn/content/repositories/releases</url>
+        </repository>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>nexus-snapshots</id>
+            <url>http://nexus.51caocao.cn/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
