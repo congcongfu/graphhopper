@@ -15,17 +15,25 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.graphhopper.routing.util.spatialrules;
+package com.graphhopper.routing.ch;
 
-/**
- * Enum defining AccessValues
- *
- * @author Robin Boldt
- */
-public enum AccessValue {
+import org.junit.Test;
 
-    ACCESSIBLE,
-    EVENTUALLY_ACCESSIBLE,
-    NOT_ACCESSIBLE
+import static org.junit.Assert.assertEquals;
+
+public class OnFlyStatisticsCalculatorTest {
+
+    @Test
+    public void testOnFlyMeanAndVarianceCalculation() {
+        OnFlyStatisticsCalculator calc = new OnFlyStatisticsCalculator();
+        calc.addObservation(5);
+        calc.addObservation(7);
+        calc.addObservation(10);
+        calc.addObservation(12);
+        calc.addObservation(17);
+        assertEquals(10.2, calc.getMean(), 1.e-6);
+        assertEquals(17.36, calc.getVariance(), 1.e-6);
+
+    }
 
 }
