@@ -262,6 +262,9 @@ public class LocationIndexTree implements LocationIndex {
         return true;
     }
 
+    /**
+     * 将二进制文件写到本地
+     */
     @Override
     public void flush() {
         dataAccess.setHeader(0, MAGIC_INT);
@@ -272,6 +275,10 @@ public class LocationIndexTree implements LocationIndex {
         dataAccess.flush();
     }
 
+    /**
+     * 如果本地没有二进制文件,则写一份进去
+     * @return
+     */
     @Override
     public LocationIndex prepareIndex() {
         if (initialized)

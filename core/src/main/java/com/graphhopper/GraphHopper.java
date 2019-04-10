@@ -651,7 +651,7 @@ public class GraphHopper implements GraphHopperAPI {
 
         DataReader reader = createReader(ghStorage);
         logger.info("using " + ghStorage.toString() + ", memory:" + getMemInfo());
-        reader.readGraph();
+        reader.readGraph();   //读取osm 数据到内存
         return reader;
     }
 

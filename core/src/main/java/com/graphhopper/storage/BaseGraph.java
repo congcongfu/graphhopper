@@ -354,6 +354,10 @@ class BaseGraph implements Graph {
             throw new IllegalStateException("Cannot add edge or node after baseGraph.freeze was called");
     }
 
+    /**
+     * 初始化,关键的几个数据结构
+     * @param initSize
+     */
     void create(long initSize) {
         nodes.create(initSize);
         edges.create(initSize);
@@ -409,6 +413,9 @@ class BaseGraph implements Graph {
         }
     }
 
+    /**
+     * 生成关键的一些二进制索引文件
+     */
     void flush() {
         setNodesHeader();
         setEdgesHeader();
@@ -438,6 +445,10 @@ class BaseGraph implements Graph {
         return maxGeoRef;
     }
 
+    /**
+     * 将二进制文件,读到内存中
+     * @param dim
+     */
     void loadExisting(String dim) {
         if (!nodes.loadExisting())
             throw new IllegalStateException("Cannot load nodes. corrupt file or directory? " + dir);
@@ -1284,6 +1295,11 @@ class BaseGraph implements Graph {
             return baseGraph.copyProperties(edge, this);
         }
 
+        /**
+         * 设置osm wayGeometry存储
+         * @param pillarNodes
+         * @return
+         */
         @Override
         public EdgeIteratorState setWayGeometry(PointList pillarNodes) {
             baseGraph.setWayGeometry_(pillarNodes, edgePointer, reverse);

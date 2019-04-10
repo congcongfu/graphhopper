@@ -577,7 +577,7 @@ public class EncodingManager implements EncodedValueLookup {
                     name += ", " + refName;
             }
 
-            edge.setName(name);
+            edge.setName(name); //nameIndex设置值,很隐蔽
         }
 
         for (AbstractFlagEncoder encoder : edgeEncoders) {

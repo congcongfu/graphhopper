@@ -698,6 +698,15 @@ public class OSMReader implements DataReader {
         return newEdges;
     }
 
+    /**
+     * 增加一条边
+     * @param fromIndex
+     * @param toIndex
+     * @param pointList
+     * @param flags
+     * @param wayOsmId
+     * @return
+     */
     EdgeIteratorState addEdge(int fromIndex, int toIndex, PointList pointList, IntsRef flags, long wayOsmId) {
         // sanity checks
         if (fromIndex < 0 || toIndex < 0)
@@ -763,7 +772,7 @@ public class OSMReader implements DataReader {
             if (doSimplify)
                 simplifyAlgo.simplify(pillarNodes);
 
-            iter.setWayGeometry(pillarNodes);
+            iter.setWayGeometry(pillarNodes);  //wayGeometry 设置值
         }
         storeOsmWayID(iter.getEdge(), wayOsmId);
         return iter;
