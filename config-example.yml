@@ -41,7 +41,7 @@ graphhopper:
 
   # To enable turn-costs in speed mode (contraction hierarchies) edge-based graph traversal and a more elaborate
   # pre-processing is required. Using this option you can either turn off the edge-based pre-processing (choose 'off'),
-  # use edge-based pre-processing for all encoders/vehicles with turn_costs=true (choose 'edge_or_node') or use node-based
+  # use edge-based pre-processing for all encoders/vehicles with turn_costs=true (choose 'edge_or_node') or use parent-based
   # pre-processing for all encoders/vehicles and additional edge-based pre-processing for all encoders/vehicles with
   # turn_costs=true (choose 'edge_and_node').
   prepare.ch.edge_based: off

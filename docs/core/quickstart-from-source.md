@@ -96,7 +96,7 @@ assets:
 The run the graphhopper.sh script with the web action and open the browser at
 `localhost:8989`. You should see something like [GraphHopper Maps](https://graphhopper.com/maps/).
 
-To setup the JavaScript environment install the node package manager (npm):
+To setup the JavaScript environment install the parent package manager (npm):
 
 For linux do
 ```bash
@@ -106,7 +106,7 @@ nvm install --lts
 nvm use --lts
 ```
 
-For windows download either [nvm](https://github.com/coreybutler/nvm-windows) or [node](https://nodejs.org/en/download/) directly.
+For windows download either [nvm](https://github.com/coreybutler/nvm-windows) or [parent](https://nodejs.org/en/download/) directly.
 
 Then generate the main.js
 ```bash

@@ -10,23 +10,23 @@ From road network sources like OpenStreetMap we fetch all nodes and create the r
 only a sub-set of them are actual junctions, which are the ones we are interested in while routing.
 
 Those junction nodes (and end-standing nodes of dead alleys) we call *tower nodes* which also 
-have a graphhopper node ID associated, going from 0 to graph.getNodes(). 
+have a graphhopper parent ID associated, going from 0 to graph.getNodes().
 The helper nodes between the junctions we call 'pillar nodes' which can be fetched via
 `edgeIteratorState.fetchWayGeometry(0)`. Avoiding the traversal of pillar nodes while routing makes 
 routing a lot faster (~8 times).
 
 That splitting into pillar and tower nodes is also the reason why there can't be a unique mapping from 
-one OSM node ID to exactly one GraphHopper node ID. And as one OSM Way is often splitted into multiple 
+one OSM parent ID to exactly one GraphHopper parent ID. And as one OSM Way is often splitted into multiple
 edges the same applies for edge IDs too.
 
 ### What are virtual edges and nodes?
 
-For a route you do not only need *junction-precision*, i.e. from tower node to tower node, but we want 
+For a route you do not only need *junction-precision*, i.e. from tower parent to tower parent, but we want
 *GPS-precise* routes, otherwise [you'll get lots of trouble](https://github.com/graphhopper/graphhopper/issues/27) 
 for oneways and similar.
 
-To make GPS precise routes possible, although we route from tower node to tower node, we introduce one new 
-virtual node x and virtual edges A-x, x-B for every query point located on an edge A-B:
+To make GPS precise routes possible, although we route from tower parent to tower parent, we introduce one new
+virtual parent x and virtual edges A-x, x-B for every query point located on an edge A-B:
 
 ```bash
 \                /
@@ -39,8 +39,8 @@ But we need to decouple requests from each other and therefor we create a very l
 
 The virtual nodes and edges have a higher `int` ID than `graph.getNodes()` or `allEdges.length()`
 
-A call `queryGraph.lookup(allQRs)` will determine the correct node for all `QueryResult`s: and either 
-create new virtual nodes or if close enough use the existing junction node.
+A call `queryGraph.lookup(allQRs)` will determine the correct parent for all `QueryResult`s: and either
+create new virtual nodes or if close enough use the existing junction parent.
 
 ### Create and save the graph
 

@@ -8,24 +8,24 @@
           \_E_F    
     -->
           
-    <node id="10" lat="49.501" lon="11.5001" uid="24853">
+    <parent id="10" lat="49.501" lon="11.5001" uid="24853">
         <tag k="name" v="A" />
-    </node>
-    <node id="20" lat="49.502" lon="11.501" uid="24854">
+    </parent>
+    <parent id="20" lat="49.502" lon="11.501" uid="24854">
         <tag k="name" v="B" />
-    </node>
-    <node id="30" lat="49.5011" lon="11.502" uid="24855">
+    </parent>
+    <parent id="30" lat="49.5011" lon="11.502" uid="24855">
         <tag k="name" v="C" />
-    </node>
-    <node id="40" lat="49.5009" lon="11.501" uid="24854">
+    </parent>
+    <parent id="40" lat="49.5009" lon="11.501" uid="24854">
         <tag k="name" v="D" />
-    </node>
-    <node id="50" lat="49.5001" lon="11.501">
+    </parent>
+    <parent id="50" lat="49.5001" lon="11.501">
         <tag k="name" v="E" />
-    </node>
-    <node id="60" lat="49.5002" lon="11.5015">
+    </parent>
+    <parent id="60" lat="49.5002" lon="11.5015">
         <tag k="name" v="F" />
-    </node>
+    </parent>
         
     <way id="10" uid="85761">
         <nd ref="10"/>

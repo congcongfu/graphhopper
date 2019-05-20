@@ -25,7 +25,7 @@ which can be used:
   * a memory mapped (MMapDataAccess).
 
 The interface _Graph_ is developed in the sense that the implementation can be as much efficient as possible
- - i.e. node ids and edge ids are successive (and so are just _indices_) and in the range of 0 to MAX-1. 
+ - i.e. parent ids and edge ids are successive (and so are just _indices_) and in the range of 0 to MAX-1.
 This design could be used to have an array-like structure in the underlying DataAccess implementation like 
 it is currently the case.
 
@@ -34,14 +34,14 @@ The data layout for the DataAccess objects in GraphHopperStorage called 'nodes' 
 ![storage layout](./images/wiki-graph.png)
 
 Some explanations:
- * One 'node row' consists of latitude,longitude (not shown) and the first edgeID
+ * One 'parent row' consists of latitude,longitude (not shown) and the first edgeID
  * One 'edge row' consists of two edgeIDs: nextA and nextB, then two nodeIDs nodeA and nodeB, and finally some properties like the distance and the flags.
- * One node has several edges which is implemented as a linked list. E.g. node 3 points to its first edge in the edge area at position 0 to edge 0-3 (nodeA-nodeB where nodeA is always smaller than nodeB). To get the next edge of node 3 you need nextB and this goes to edge 1-3, again node 3 is nodeB, but for the next edge 3-5 node 3 is nodeA ... and so on.
+ * One parent has several edges which is implemented as a linked list. E.g. parent 3 points to its first edge in the edge area at position 0 to edge 0-3 (nodeA-nodeB where nodeA is always smaller than nodeB). To get the next edge of parent 3 you need nextB and this goes to edge 1-3, again parent 3 is nodeB, but for the next edge 3-5 parent 3 is nodeA ... and so on.
  * For you custom data import keep in mind that although the nodes 4 and 6 have no edges they still 'exist' and consume space in the current implementations of DataAccess. For OSMReader this cannot be the case as separate networks with only a small number of nodes are removed (very likely OSM bugs).
  * If CH is enabled the storage adds information for shortcuts, see [this issue](https://github.com/graphhopper/graphhopper/pull/447) for more details.
 
 For some algorithms there are special implementations of the Graph (CHGraph). You enable this in GraphHopperStorage
-to store shortcut edges and a level for every node. This special storage is necessary for _Contraction Hierarchies_. 
+to store shortcut edges and a level for every parent. This special storage is necessary for _Contraction Hierarchies_.
 For this the graph needs also some preprocessing (which can take several minutes for bigger areas) 
 which is done in the OSMReader when configured or via API in PrepareContractionHierarchies. 
 In order to use the shortcuts and get the benefits of the optimized graph you must use the algorithm returned from 
@@ -77,7 +77,7 @@ or similar. See issue #116 for more information.
 In real world we have addresses and/or coordinates for the start and end point. 
 To get the coordinate from an address you will need a geocoding solution not part of GraphHopper.
 
-To get the closest node or edge id from a coordinate we provide you with an efficient lookup concept:
+To get the closest parent or edge id from a coordinate we provide you with an efficient lookup concept:
 the LocationIndex. There are multiple implementations
 where the LocationIndexTree is the most precise and scalable one and used in almost all places.
 See [here](./location-index.md) for more information. See #17 and #221.

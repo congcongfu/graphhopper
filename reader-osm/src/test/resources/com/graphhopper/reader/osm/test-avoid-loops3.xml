@@ -9,21 +9,21 @@
        ~~~
     -->
 
-    <node id="1" lat="11" lon="50" uid="A">
+    <parent id="1" lat="11" lon="50" uid="A">
         <tag k="name" v="A"/>
-    </node>
-    <node id="2" lat="12" lon="51" uid="B">
+    </parent>
+    <parent id="2" lat="12" lon="51" uid="B">
         <tag k="name" v="B"/>
-    </node>
-    <node id="3" lat="13" lon="52" uid="C">
+    </parent>
+    <parent id="3" lat="13" lon="52" uid="C">
         <tag k="name" v="C"/>
-    </node>
-    <node id="4" lat="14" lon="51" uid="D">
+    </parent>
+    <parent id="4" lat="14" lon="51" uid="D">
         <tag k="name" v="D"/>
-    </node>
-    <node id="5" lat="15" lon="51" uid="E">
+    </parent>
+    <parent id="5" lat="15" lon="51" uid="E">
         <tag k="name" v="E"/>
-    </node>
+    </parent>
 
     <way id="10" uid="85761">
         <nd ref="1"/>

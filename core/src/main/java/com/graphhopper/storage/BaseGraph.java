@@ -869,6 +869,7 @@ class BaseGraph implements Graph {
             double lat = pillarNodes.getLatitude(i);
             bitUtil.fromInt(bytes, Helper.degreeToInt(lat), tmpOffset);
             tmpOffset += 4;
+            double lg = pillarNodes.getLongitude(i);
             bitUtil.fromInt(bytes, Helper.degreeToInt(pillarNodes.getLongitude(i)), tmpOffset);
             tmpOffset += 4;
 

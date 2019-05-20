@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version="0.6" generator="pbf2osm" timestamp="2013-01-02T01:10:14Z">
     
-    <node id="10" lat="0" lon="179.5" uid="24853">           
-    </node>    
-    <node id="20" lat="0" lon="179.6" uid="24854">        
-    </node>
-    <node id="30" lat="0.1" lon="-179.9" uid="24855">        
-    </node>
+    <parent id="10" lat="0" lon="179.5" uid="24853">
+    </parent>
+    <parent id="20" lat="0" lon="179.6" uid="24854">
+    </parent>
+    <parent id="30" lat="0.1" lon="-179.9" uid="24855">
+    </parent>
 
-    <node id="35" lat="0.1" lon="-179.5" uid="3212487">        
-    </node>
+    <parent id="35" lat="0.1" lon="-179.5" uid="3212487">
+    </parent>
     
-    <node id="11" lat="0.1" lon="179.5" uid="34853">           
-    </node>
+    <parent id="11" lat="0.1" lon="179.5" uid="34853">
+    </parent>
 
     <way id="10" uid="85761">
         <nd ref="10"/>

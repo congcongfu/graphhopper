@@ -893,8 +893,8 @@ public class LocationIndexTree implements LocationIndex {
             PointEmitter pointEmitter = new PointEmitter() {
                 @Override
                 public void set(double lat, double lon) {
-                    long key = keyAlgo.encode(lat, lon);
-                    long keyPart = createReverseKey(key);
+                    long key = keyAlgo.encode(lat, lon); //计算geoHash的值
+                    long keyPart = createReverseKey(key); //geoHash反转一下是为了啥
                     // no need to feed both nodes as we search neighbors in fillIDs
                     addNode(root, nodeA, 0, keyPart, key);
                 }
@@ -975,7 +975,7 @@ public class LocationIndexTree implements LocationIndex {
             }
         }
 
-        // store and freezes tree
+        // store and freezes tree //将边的集合写到dataAccess中,本地写到locationIndex中
         int store(InMemEntry entry, int intPointer) {
             long pointer = (long) intPointer * 4;
             if (entry.isLeaf()) {
@@ -994,7 +994,7 @@ public class LocationIndexTree implements LocationIndex {
                     dataAccess.setInt(pointer, -entries.get(0) - 1);
                 } else {
                     for (int index = 0; index < len; index++, intPointer++) {
-                        dataAccess.setInt((long) intPointer * 4, entries.get(index));
+                        dataAccess.setInt((long) intPointer * 4, entries.get(index));//
                     }
                     dataAccess.setInt(pointer, intPointer);
                 }

@@ -16,7 +16,7 @@ Turn restrictions have to be enabled on a vehicle basis. To enable it for one ve
 Turn restrictions are not available for every vehicle as they have low relevance
 for some vehicles like `foot`. 
 To enable turn restrictions when using the 'speed mode' additional graph preparation is required, because turn restrictions
-require edge-based (vs. node-based) traversal of the graph. First you have to set the weightings for which the graph 
+require edge-based (vs. parent-based) traversal of the graph. First you have to set the weightings for which the graph
 preparation should be run using e.g. `prepare.ch.weightings=fastest`, just like when you use the 'speed mode' without 
 turn restrictions. Additionally you need to set `prepare.ch.turn_costs` to `edge_or_node` or `edge_and_node`
 (see `config-example.yml` for further details). At request time you need to add `edge_based=true` as URL parameter to 

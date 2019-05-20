@@ -33,7 +33,7 @@ firefox http://localhost:8989
 
 We see three trips of two routes (top to bottom: route 1, route 1, route 2) and three stations (colored groups).
 The ENTER_TEN and LEAVE_TEN edges are the entry and exit to the time expanded network proper. They enforce that
-you are put on the correct node in the timeline when searching forward and backward, respectively. The STOP_ENTER
+you are put on the correct parent in the timeline when searching forward and backward, respectively. The STOP_ENTER
 and STOP_EXIT nodes are regular, spatial nodes which can be connected to the road network.
 
 The BOARD edge checks if the trip is valid on the requested day: Our graph is "modulo operating day", but

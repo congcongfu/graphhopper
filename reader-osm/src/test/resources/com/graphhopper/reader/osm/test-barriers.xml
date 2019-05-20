@@ -1,26 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version="0.6" generator="pbf2osm">
-    <node id="10" lat="51" lon="9.4317166">
+    <parent id="10" lat="51" lon="9.4317166">
         <tag k="name" v="Wiesbaden-Naurod" />
-    </node>
-    <node id="20" lat="52" lon="9.4">
+    </parent>
+    <parent id="20" lat="52" lon="9.4">
         <tag k="barrier" v="gate" />
-    </node>
-    <node id="30" lat="53" lon="9.4">
-    </node>    
-    <node id="40" lat="54" lon="9.4">        
-    </node>
+    </parent>
+    <parent id="30" lat="53" lon="9.4">
+    </parent>
+    <parent id="40" lat="54" lon="9.4">
+    </parent>
     
-    <!--     barrier on tower node -->
-    <node id="50" lat="55" lon="9.4">        
+    <!--     barrier on tower parent -->
+    <parent id="50" lat="55" lon="9.4">
         <tag k="barrier" v="gate" />
-    </node>
-    <node id="60" lat="56" lon="9.4">
-    </node>
-    <node id="70" lat="57" lon="9.4">
-    </node>    
-    <node id="80" lat="58" lon="9.4">        
-    </node>
+    </parent>
+    <parent id="60" lat="56" lon="9.4">
+    </parent>
+    <parent id="70" lat="57" lon="9.4">
+    </parent>
+    <parent id="80" lat="58" lon="9.4">
+    </parent>
     
     <!-- 10-20|-30- - 50|-..         
          |       |     |
@@ -28,7 +28,7 @@
     -->
     <way id="10">
         <nd ref="10"/>
-        <!-- this pillar node has a barrier -->
+        <!-- this pillar parent has a barrier -->
         <nd ref="20"/>        
         <nd ref="30"/>
         <tag k="highway" v="motorway" />
@@ -42,7 +42,7 @@
     </way>     
     
     <way id="30">
-        <!-- this tower node has a barrier -->
+        <!-- this tower parent has a barrier -->
         <nd ref="50"/>
         <nd ref="60"/>        
         <tag k="highway" v="motorway" />

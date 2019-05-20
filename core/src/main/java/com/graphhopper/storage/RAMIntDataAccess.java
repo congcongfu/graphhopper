@@ -178,7 +178,7 @@ class RAMIntDataAccess extends AbstractDataAccess {
                     int intLen = area.length;
                     byte[] byteArea = new byte[intLen * 4];
                     for (int i = 0; i < intLen; i++) {
-                        bitUtil.fromInt(byteArea, area[i], i * 4);
+                        bitUtil.fromInt(byteArea, area[i], i * 4); //转换成 byte数组
                     }
                     raFile.write(byteArea);
                 }

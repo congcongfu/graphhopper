@@ -540,8 +540,8 @@ public class OSMReader implements DataReader {
             addTowerNode(node.getId(), lat, lon, ele);
         } else if (nodeType == PILLAR_NODE) {
             pillarInfo.setNode(nextPillarId, lat, lon, ele);
-            getNodeMap().put(node.getId(), nextPillarId + 3);
-            nextPillarId++;
+            getNodeMap().put(node.getId(), nextPillarId + 3); //value nextPillarId +3
+            nextPillarId++;  //pillar id 自增
         }
         return true;
     }
@@ -580,7 +580,7 @@ public class OSMReader implements DataReader {
                 getRelFlagsMap().put(osmId, newRelationFlags);
         }
     }
-
+    //出现多余一次就从pillar node 变成 tower node
     void prepareHighwayNode(long osmId) {
         int tmpGHNodeId = getNodeMap().get(osmId);
         if (tmpGHNodeId == EMPTY_NODE) {
@@ -598,11 +598,11 @@ public class OSMReader implements DataReader {
         if (nodeAccess.is3D())
             nodeAccess.setNode(nextTowerId, lat, lon, ele);
         else
-            nodeAccess.setNode(nextTowerId, lat, lon);
+            nodeAccess.setNode(nextTowerId, lat, lon); //写到 nodeAccess 中
 
-        int id = -(nextTowerId + 3);
+        int id = -(nextTowerId + 3); //value  -(nextTowerId +3)
         getNodeMap().put(osmId, id);
-        nextTowerId++;
+        nextTowerId++;  // 自增
         return id;
     }
 

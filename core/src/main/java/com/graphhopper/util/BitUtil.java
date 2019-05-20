@@ -244,6 +244,12 @@ public abstract class BitUtil {
         return res;
     }
 
+    public static void main(String[] args) {
+        BitUtil bitUtil = new BitUtilBig();
+        Long reverse = bitUtil.reverse(57,10);
+        System.out.println(reverse);
+    }
+
     public final int getIntLow(long longValue) {
         return (int) (longValue & 0xFFFFFFFFL);
     }

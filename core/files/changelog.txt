@@ -89,7 +89,7 @@
     create location index before preparation in the GraphHopper class
     encodingManager.getSingle() is removed and flagEncoder list is no longer sorted, the first vehicle is used for CH preparation    
     removed LocationIndexTreeSC, use new LocationIndexTree(levelGraph.getBaseGraph(), directory) instead
-    getLevel and setLevel do no longer automatically increase node count, use getNodeAccess.ensureNode for that
+    getLevel and setLevel do no longer automatically increase parent count, use getNodeAccess.ensureNode for that
     normal algorithms are now possible on prepared graph use getBaseGraph, see #116
     GHResponse no longer has isFound method, use !hasErrors instead
     merged unused Edge class into EdgeEntry
@@ -99,7 +99,7 @@
     major change of internal API: moved method "Path RoutingAlgorithm.calcPath(QueryResult,QueryResult)" to a helper method QueryGraph.lookup, call queryResult.getClosestNode for the calcPath(nodeFrom,nodeTo) method
     no cachedWays and cachedPoints in Path anymore
     Path.findInstruction was moved to InstructionList.find
-    if start and end point are identical an algorithm will find the path consisting only of one node, one point and one instruction (finish instruction), but without edges
+    if start and end point are identical an algorithm will find the path consisting only of one parent, one point and one instruction (finish instruction), but without edges
     astarbi has new default values for approximation (false) and approximation_factor (1.2) in RoutingAlgorithmFactorySimple
     instead of strings use the variables in AlgorithmOptions to specify an algorithm
     use RoutingAlgorithmFactorySimple instead of RoutingAlgorithmFactory, also more constistent algorithm preparation handling due to new AlgorithmOptions, therefor removed NoOpAlgorithmPreparation
@@ -164,7 +164,7 @@
             the URL parameter algoType in web module is now deprecated and 'weighting' should be used
         removed GHDijkstraHeap, GHDijkstraHeap2    
         made DistanceCalc into interface (new DistanceCalcEarth implementation)
-        made GraphStorage into interface (new GraphHopperStorage implementation) move some methods from Graph into GraphStorage -> optimize + node removal stuff -> not necessary in algorithms
+        made GraphStorage into interface (new GraphHopperStorage implementation) move some methods from Graph into GraphStorage -> optimize + parent removal stuff -> not necessary in algorithms
     incompatible storage layout due to:
         pluggable endianness (#103) -> changed default endianess to LITTLE
     add highly experimental UnsafeDataAccess to speed up search ~15%
