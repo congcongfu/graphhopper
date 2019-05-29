@@ -38,9 +38,9 @@ import java.util.PriorityQueue;
  * @author Peter Karich
  */
 public class Dijkstra extends AbstractRoutingAlgorithm {
-    protected IntObjectMap<SPTEntry> fromMap;
-    protected PriorityQueue<SPTEntry> fromHeap;
-    protected SPTEntry currEdge;
+    protected IntObjectMap<SPTEntry> fromMap; // 遍历过的顶点
+    protected PriorityQueue<SPTEntry> fromHeap; //优先队列
+    protected SPTEntry currEdge;   //S 集合
     private int visitedNodes;
     private int to = -1;
 
@@ -76,7 +76,7 @@ public class Dijkstra extends AbstractRoutingAlgorithm {
 
             int startNode = currEdge.adjNode;
             EdgeIterator iter = explorer.setBaseNode(startNode);
-            while (iter.next()) {
+            while (iter.next()) { //遍历邻点
                 if (!accept(iter, currEdge.edge))
                     continue;
 
@@ -86,19 +86,19 @@ public class Dijkstra extends AbstractRoutingAlgorithm {
                     continue;
 
                 SPTEntry nEdge = fromMap.get(traversalId);
-                if (nEdge == null) {
+                if (nEdge == null) { //没有遍历过
                     nEdge = new SPTEntry(iter.getEdge(), iter.getAdjNode(), tmpWeight);
-                    nEdge.parent = currEdge;
+                    nEdge.parent = currEdge;//设置新节点的parent为当前节点
                     fromMap.put(traversalId, nEdge);
                     fromHeap.add(nEdge);
-                } else if (nEdge.weight > tmpWeight) {
+                } else if (nEdge.weight > tmpWeight) { //该路径比已遍历的路径更优
                     fromHeap.remove(nEdge);
                     nEdge.edge = iter.getEdge();
                     nEdge.weight = tmpWeight;
-                    nEdge.parent = currEdge;
+                    nEdge.parent = currEdge;//设置新节点的parent为当前节点
                     fromHeap.add(nEdge);
                 } else
-                    continue;
+                    continue; //跳过
 
                 updateBestPath(iter, nEdge, traversalId);
             }

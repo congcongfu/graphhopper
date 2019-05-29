@@ -38,18 +38,18 @@ import java.util.PriorityQueue;
  * @author Peter Karich
  */
 public class AStar extends AbstractRoutingAlgorithm {
-    private WeightApproximator weightApprox;
+    private WeightApproximator weightApprox;  // 近似距离计算
     private int visitedCount;
-    private GHIntObjectHashMap<AStarEntry> fromMap;
-    private PriorityQueue<AStarEntry> prioQueueOpenSet;
-    private AStarEntry currEdge;
+    private GHIntObjectHashMap<AStarEntry> fromMap; //CLOSE set
+    private PriorityQueue<AStarEntry> prioQueueOpenSet;  //OPEN set
+    private AStarEntry currEdge; //当前节点
     private int to1 = -1;
 
     public AStar(Graph graph, Weighting weighting, TraversalMode tMode) {
         super(graph, weighting, tMode);
         int size = Math.min(Math.max(200, graph.getNodes() / 10), 2000);
         initCollections(size);
-        BeelineWeightApproximator defaultApprox = new BeelineWeightApproximator(nodeAccess, weighting);
+        BeelineWeightApproximator defaultApprox = new BeelineWeightApproximator(nodeAccess, weighting).setDistanceCalc(Helper.DIST_PLANE);
         defaultApprox.setDistanceCalc(Helper.DIST_PLANE);
         setApproximation(defaultApprox);
     }
@@ -85,16 +85,15 @@ public class AStar extends AbstractRoutingAlgorithm {
         double currWeightToGoal, estimationFullWeight;
         EdgeExplorer explorer = outEdgeExplorer;
         while (true) {
-            int currVertex = currEdge.adjNode;
+            int currVertex = currEdge.adjNode;  //从起始节点开始遍历
             visitedCount++;
-            if (isMaxVisitedNodesExceeded())
+             if (isMaxVisitedNodesExceeded())
                 return createEmptyPath();
-
             if (finished())
                 break;
 
-            EdgeIterator iter = explorer.setBaseNode(currVertex);
-            while (iter.next()) {
+            EdgeIterator iter = explorer.setBaseNode(currVertex); //该节点所有邻边的集合
+            while (iter.next()) {//遍历邻边
                 if (!accept(iter, currEdge.edge))
                     continue;
 
@@ -105,33 +104,34 @@ public class AStar extends AbstractRoutingAlgorithm {
 
                 int traversalId = traversalMode.createTraversalId(iter, false);
                 AStarEntry ase = fromMap.get(traversalId);
-                if (ase == null || ase.weightOfVisitedPath > alreadyVisitedWeight) {
-                    int neighborNode = iter.getAdjNode();
-                    currWeightToGoal = weightApprox.approximate(neighborNode);
-                    estimationFullWeight = alreadyVisitedWeight + currWeightToGoal;
-                    if (ase == null) {
+                //如果该节点在不在CLOSE中,或者 在CLOSE中且遍历下一个节点的路径代价更短
+                 if (ase == null || ase.weightOfVisitedPath > alreadyVisitedWeight) {
+                    int neighborNode = iter.getAdjNode(); //邻点
+                    currWeightToGoal = weightApprox.approximate(neighborNode);  // 计算优先级
+                    estimationFullWeight = alreadyVisitedWeight + currWeightToGoal;  //计算起点到下一个点的预估代价
+                    if (ase == null) { //如果该节点在不在CLOSE中
                         ase = new AStarEntry(iter.getEdge(), neighborNode, estimationFullWeight, alreadyVisitedWeight);
                         fromMap.put(traversalId, ase);
-                    } else {
+                    } else { //遍历下一个节点的路径代价更短
 //                        assert (ase.weight > 0.9999999 * estimationFullWeight) : "Inconsistent distance estimate. It is expected weight >= estimationFullWeight but was "
 //                                + ase.weight + " < " + estimationFullWeight + " (" + ase.weight / estimationFullWeight + "), and weightOfVisitedPath:"
 //                                + ase.weightOfVisitedPath + " vs. alreadyVisitedWeight:" + alreadyVisitedWeight + " (" + ase.weightOfVisitedPath / alreadyVisitedWeight + ")";
 
-                        prioQueueOpenSet.remove(ase);
+                        prioQueueOpenSet.remove(ase);  //从OPEN中删除
                         ase.edge = iter.getEdge();
-                        ase.weight = estimationFullWeight;
+                        ase.weight = estimationFullWeight; //计算优先级
                         ase.weightOfVisitedPath = alreadyVisitedWeight;
                     }
 
-                    ase.parent = currEdge;
-                    prioQueueOpenSet.add(ase);
+                    ase.parent = currEdge; //设置m的父节点为n
+                    prioQueueOpenSet.add(ase);  //将节点m加入openSet中(优先队列)
 
                     updateBestPath(iter, ase, traversalId);
-                }
+                } //直接跳过
             }
 
             if (prioQueueOpenSet.isEmpty())
-                return createEmptyPath();
+                return createEmptyPath();  //OPEN 为空说明地图搜索之后没有找到路径
 
             currEdge = prioQueueOpenSet.poll();
             if (currEdge == null)

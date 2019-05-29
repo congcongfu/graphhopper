@@ -986,7 +986,7 @@ class BaseGraph implements Graph {
                 throw new IllegalArgumentException("fetching the edge requires a valid edgeId but was " + edgeId);
 
             selectEdgeAccess();
-            edgePointer = edgeAccess.toPointer(tmpEdgeId);
+            edgePointer = edgeAccess.toPointer(tmpEdgeId);  // edgePointer = tmpEdgeId * edgeEntryBytes
             baseNode = edgeAccess.getNodeA(edgePointer);
             adjNode = edgeAccess.getNodeB(edgePointer);
             if (EdgeAccess.isInvalidNodeB(adjNode))
@@ -1341,7 +1341,7 @@ class BaseGraph implements Graph {
 
         @Override
         public EdgeIteratorState setName(String name) {
-            baseGraph.setName(edgePointer, name);
+            baseGraph.setName(edgePointer, name);  // name 和 edgePointer 关联
             return this;
         }
 

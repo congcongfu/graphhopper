@@ -372,7 +372,7 @@ public class OSMReader implements DataReader {
                         if (lastBarrier < 0)
                             lastBarrier = 0;
 
-                        // add way up to barrier shadow node                        
+                        // add way up to barrier shadow node
                         int length = i - lastBarrier + 1;
                         LongArrayList partNodeIds = new LongArrayList();
                         partNodeIds.add(osmNodeIds.buffer, lastBarrier, length);
@@ -651,7 +651,7 @@ public class OSMReader implements DataReader {
                     throw new AssertionError("Mapped index not in correct bounds " + tmpNode + ", " + osmNodeId);
 
                 if (tmpNode > -TOWER_NODE) {
-                    boolean convertToTowerNode = i == 0 || i == lastIndex;
+                    boolean convertToTowerNode = i == 0 || i == lastIndex;  // 第一个点和最后一个点都会转成 towernode
                     if (!convertToTowerNode) {
                         lastInBoundsPillarNode = tmpNode;
                     }
@@ -739,7 +739,7 @@ public class OSMReader implements DataReader {
 
             prevLat = lat;
             prevLon = lon;
-            if (nodes > 2 && i < nodes - 1) {
+            if (nodes > 2 && i < nodes - 1) {  //不包括一条边的头和尾两个节点
                 if (pillarNodes.is3D())
                     pillarNodes.add(lat, lon, ele);
                 else
@@ -747,7 +747,7 @@ public class OSMReader implements DataReader {
             }
         }
         if (towerNodeDistance < 0.0001) {
-            // As investigation shows often two paths should have crossed via one identical point 
+            // As investigation shows often two paths should have crossed via one identical point
             // but end up in two very close points.
             zeroCounter++;
             towerNodeDistance = 0.0001;
@@ -760,7 +760,7 @@ public class OSMReader implements DataReader {
         }
 
         if (Double.isInfinite(towerNodeDistance) || towerNodeDistance > maxDistance) {
-            // Too large is very rare and often the wrong tagging. See #435 
+            // Too large is very rare and often the wrong tagging. See #435
             // so we can avoid the complexity of splitting the way for now (new towernodes would be required, splitting up geometry etc)
             LOGGER.warn("Bug in OSM or GraphHopper. Too big tower node distance " + towerNodeDistance + " reset to large value, osm way " + wayOsmId);
             towerNodeDistance = maxDistance;
@@ -774,7 +774,7 @@ public class OSMReader implements DataReader {
 
             iter.setWayGeometry(pillarNodes);  //wayGeometry 设置值
         }
-        storeOsmWayID(iter.getEdge(), wayOsmId);
+        storeOsmWayID(iter.getEdge(), wayOsmId); //边和wayId关联关系,处理relation的时候需要用到
         return iter;
     }
 
@@ -799,7 +799,7 @@ public class OSMReader implements DataReader {
             throw new RuntimeException("Conversion pillarNode to towerNode already happended!? "
                     + "osmId:" + osmId + " pillarIndex:" + tmpNode);
 
-        if (convertToTowerNode) {
+        if (convertToTowerNode) {  //如果要将某个pillar node 转换成 tower node 将原来的值置为无效,tower node 增加一个
             // convert pillarNode type to towerNode, make pillar values invalid
             pillarInfo.setNode(tmpNode, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
             tmpNode = addTowerNode(osmId, lat, lon, ele);
